@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -73,6 +72,26 @@ namespace Grafico
         public void InserirAntesDoInicio(Dado informacao)
         {
             var novoNo = new NoLista<Dado>(informacao, null);
+            if (EstaVazia)
+                ultimo = novoNo;
+            else
+                novoNo.Prox = primeiro;
+            primeiro = novoNo;
+            quantosNos++;
+        }
+
+        public void InserirAposFim(NoLista<Dado> novoNo)
+        {            
+            if (EstaVazia)
+                primeiro = novoNo;
+            else
+                ultimo.Prox = novoNo;
+            ultimo = novoNo;
+            quantosNos++;
+        }
+
+        public void InserirAntesDoInicio(NoLista<Dado> novoNo)
+        {
             if (EstaVazia)
                 ultimo = novoNo;
             else
