@@ -1,0 +1,8 @@
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.csprojResolveAssemblyReference.cache
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.frmGrafico.resources
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.Properties.Resources.resources
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.csproj.GenerateResource.Cache
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\bin\Debug\Grafico.exe
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\bin\Debug\Grafico.pdb
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.exe
+C:\Users\u17393\Desktop\Projeto I - Editor Grafico\PaintCSharp\Grafico\Grafico\obj\Debug\Grafico.pdb

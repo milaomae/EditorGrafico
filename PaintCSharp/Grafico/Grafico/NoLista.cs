@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 namespace Grafico
 {
     public class NoLista<Dado> where Dado : IComparable<Dado>
