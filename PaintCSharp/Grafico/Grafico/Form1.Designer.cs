@@ -41,10 +41,15 @@
             this.btnCor = new System.Windows.Forms.ToolStripButton();
             this.btnSair = new System.Windows.Forms.ToolStripButton();
             this.stMensagem = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbAreaDesenho = new System.Windows.Forms.PictureBox();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.dlgSalvar = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
+            this.stMensagem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAreaDesenho)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +68,7 @@
             this.btnSair});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(250, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(570, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -94,6 +99,7 @@
             this.btnPonto.Name = "btnPonto";
             this.btnPonto.Size = new System.Drawing.Size(23, 22);
             this.btnPonto.Text = "Ponto";
+            this.btnPonto.Click += new System.EventHandler(this.btnPonto_Click);
             // 
             // btnReta
             // 
@@ -103,6 +109,7 @@
             this.btnReta.Name = "btnReta";
             this.btnReta.Size = new System.Drawing.Size(23, 22);
             this.btnReta.Text = "Reta";
+            this.btnReta.Click += new System.EventHandler(this.btnReta_Click);
             // 
             // btnCirculo
             // 
@@ -155,25 +162,58 @@
             this.btnSair.Image = ((System.Drawing.Image)(resources.GetObject("btnSair.Image")));
             this.btnSair.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(23, 20);
+            this.btnSair.Size = new System.Drawing.Size(23, 22);
             this.btnSair.Text = "Sair";
             // 
             // stMensagem
             // 
+            this.stMensagem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4});
             this.stMensagem.Location = new System.Drawing.Point(0, 392);
             this.stMensagem.Name = "stMensagem";
-            this.stMensagem.Size = new System.Drawing.Size(250, 22);
+            this.stMensagem.Size = new System.Drawing.Size(570, 22);
             this.stMensagem.TabIndex = 1;
             this.stMensagem.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(71, 17);
+            this.toolStripStatusLabel1.Text = "Mensagem:";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(91, 17);
+            this.toolStripStatusLabel2.Text = "sem mensagem";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(76, 17);
+            this.toolStripStatusLabel3.Text = "Coordenada:";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(21, 17);
+            this.toolStripStatusLabel4.Text = "x,y";
             // 
             // pbAreaDesenho
             // 
             this.pbAreaDesenho.Location = new System.Drawing.Point(0, 28);
             this.pbAreaDesenho.Name = "pbAreaDesenho";
-            this.pbAreaDesenho.Size = new System.Drawing.Size(250, 361);
+            this.pbAreaDesenho.Size = new System.Drawing.Size(570, 361);
             this.pbAreaDesenho.TabIndex = 2;
             this.pbAreaDesenho.TabStop = false;
             this.pbAreaDesenho.Paint += new System.Windows.Forms.PaintEventHandler(this.pbAreaDesenho_Paint);
+            this.pbAreaDesenho.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseClick);
+            this.pbAreaDesenho.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseMove);
             // 
             // dlgAbrir
             // 
@@ -183,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(250, 414);
+            this.ClientSize = new System.Drawing.Size(570, 414);
             this.Controls.Add(this.pbAreaDesenho);
             this.Controls.Add(this.stMensagem);
             this.Controls.Add(this.toolStrip1);
@@ -191,6 +231,8 @@
             this.Text = "Desenho Geométrico";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.stMensagem.ResumeLayout(false);
+            this.stMensagem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAreaDesenho)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -214,6 +256,10 @@
         private System.Windows.Forms.PictureBox pbAreaDesenho;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
         private System.Windows.Forms.SaveFileDialog dlgSalvar;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
     }
 }
 
