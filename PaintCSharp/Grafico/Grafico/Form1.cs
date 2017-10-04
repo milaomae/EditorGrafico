@@ -48,6 +48,7 @@ namespace Grafico
         private void btnAbrir_Click(object sender, EventArgs e)
         {
             //Está dando erro!!!
+	    //Mudado, testar depois!!
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
                 try
                 {
