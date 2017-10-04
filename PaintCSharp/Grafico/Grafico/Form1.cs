@@ -58,7 +58,7 @@ namespace Grafico
                     Double xSupDir = Convert.ToDouble(linha.Substring(10, 5).Trim());
                     Double ySupDir = Convert.ToDouble(linha.Substring(15, 5).Trim());
 
-                    while ((linha = arqFiguras.ReadLine()) != null)
+                    while (!arqFiguras.EndOfStream)
                     {
                         String tipo = linha.Substring(0, 5).Trim();
                         int xBase = Convert.ToInt32(linha.Substring(5, 5).Trim());
