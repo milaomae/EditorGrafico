@@ -19,7 +19,15 @@ namespace Grafico
         {
             pontoFinal = new Ponto(x2, y2, novaCor);
         }
+        
+        internal Ponto PontoFinal
+        {
+            get {return pontoFinal; }
+            
+            set { pontoFinal = value; }
+        }
 
+        
         public override void Desenhar(Color corDesenho, Graphics g)
         {
             Pen pen = new Pen(corDesenho);
