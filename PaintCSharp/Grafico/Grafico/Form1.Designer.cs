@@ -215,7 +215,7 @@
             this.pbAreaDesenho.TabStop = false;
             this.pbAreaDesenho.Click += new System.EventHandler(this.pbAreaDesenho_Click);
             this.pbAreaDesenho.Paint += new System.Windows.Forms.PaintEventHandler(this.pbAreaDesenho_Paint);
-            this.pbAreaDesenho.DoubleClick += new System.EventHandler(this.pbAreaDesenho_DoubleClick);
+            
             this.pbAreaDesenho.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseClick);
             this.pbAreaDesenho.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseMove);
             // 
@@ -233,6 +233,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "frmGrafico";
             this.Text = "Desenho Geométrico";
+            
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.stMensagem.ResumeLayout(false);

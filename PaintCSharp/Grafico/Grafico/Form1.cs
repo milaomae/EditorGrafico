@@ -127,9 +127,25 @@ namespace Grafico
 
         private void pbAreaDesenho_MouseClick(object sender, MouseEventArgs e)
         {
+            
+                figuras.IniciarPercursoSequencial();
+                while (!figuras.ChegouNoFim())
+                {
+
+                    if (figuras.Atual.Info.PertenceFigura(e.X, e.Y))
+                    {
+                        Selecionadas.InserirAposFim(figuras.Atual);
+                        stMensagem.Items[1].Text = "Figura selecionada";                        
+                    }
+
+                    figuras.Avancar();
+
+                }
+            
+
             if (esperaPonto)
             {
-                limparEsperas();
+                esperaPonto = false;
                 Ponto novoPonto = new Ponto(e.X, e.Y, corAtual);
                 figuras.InserirAposFim(new NoLista<Ponto>(novoPonto, null));
                 novoPonto.Desenhar(novoPonto.Cor, pbAreaDesenho.CreateGraphics());
@@ -138,7 +154,7 @@ namespace Grafico
             else
                 if (esperaInicioReta)
             {
-                limparEsperas();
+                esperaInicioReta = false;
                 p1.Cor = corAtual;
                 p1.X = e.X;
                 p1.Y = e.Y;
@@ -157,7 +173,7 @@ namespace Grafico
             else
                   if (esperaInicioCirculo)
             {
-                limparEsperas();
+                esperaInicioCirculo = false;
                 esperaFimCirculo = true;
                 p1.X = e.X;
                 p1.Y = e.Y;
@@ -175,7 +191,7 @@ namespace Grafico
             else
                   if (esperaInicioElipse)
             {
-                limparEsperas();
+                esperaInicioElipse = false;
                 esperaFimElipse = true;
                 p1.X = e.X;
                 p1.Y = e.Y;
@@ -223,23 +239,8 @@ namespace Grafico
 
         }
 
-        private void pbAreaDesenho_DoubleClick(object sender, EventArgs e)
-        {
-            figuras.IniciarPercursoSequencial();
-            while (figuras.ChegouNoFim())
-            {
+        
 
-                if (figuras.Atual.Info.PertenceFigura(e.X, e.Y))
-                {
-                    Selecionadas.InserirAposFim(figuras.Atual);
-                    stMensagem.Items[1].Text = "Figura selecionada";
-                    break;
-                }
-
-                figuras.Avancar();
-
-            }
-        }
 
     }
 }
