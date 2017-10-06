@@ -41,10 +41,24 @@ namespace Grafico
             anterior = null;
             atual = primeiro;
         }
+        
+        public void IniciarPercursoSequencialTP()
+        {
+            primeiroAcessoDoPercurso = true; 
+            atual = ultimo;
+            anterior = primeiro; 
+            while(anterior != atual) {anterior = anterior.Prox;};
+            
+        }
 
         public bool ChegouNoFim()
         {
             return atual == null;
+        }
+        
+        public bool ChegouNoFimTP()
+        {
+            return atual == anterior;
         }
 
         public bool podePercorrer()
@@ -58,6 +72,19 @@ namespace Grafico
         primeiroAcessoDoPercurso = false;
 
       return atual != null;
+    }
+    
+    public bool podePercorrerTP()
+    {
+      if (!primeiroAcessoDoPercursoTP)
+      {
+        atual = anterior;
+        while(anterior != atual) {anterior = anterior.Prox;};        
+      }
+      else
+        primeiroAcessoDoPercurso = false;
+
+      return atual != anterior;
     }
 
         public Dado InfoAtual()
@@ -73,7 +100,29 @@ namespace Grafico
             if (atual != null)
                 atual = atual.Prox;
         }
+        
+        public void AvancarTP()
+        {
+            if (atual != anterior){
+                atual = anterior;
+                while(anterior != atual) {anterior = anterior.Prox;}; 
+             }
+        }
 
+        public void PercorrerTrazPraFrente()
+        {
+            atual = ultimo;
+            anterior = primeiro;
+                while (atual != null)
+                {                     
+                    while(anterior != atual)
+                    {
+                        anterior = anterior.Prox;
+                    }                    
+                    atual = anterior;                
+                }
+        }
+        
         public void InserirAposFim(Dado informacao)
         {
             NoLista<Dado> novoNo = new NoLista<Dado>(informacao, null);
