@@ -389,5 +389,17 @@ namespace Grafico
                 ultimo.Prox = null;
             }
         }
+        
+        public bool LimparLista()
+        {
+            if(!EstaVazia)
+            {
+                primeiro = null;
+                ultimo = null;
+                quantosNos = 0;
+                return true;        //lista limpa com sucesso
+            }
+            return false;
+        }
     }
 }
