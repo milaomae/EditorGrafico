@@ -28,6 +28,7 @@ namespace Grafico
 
 
         Color corAtual = Color.Black;
+        Color novaCor;
 
         private void limparEsperas()
         {
@@ -49,7 +50,8 @@ namespace Grafico
         private void pbAreaDesenho_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;    // acessa contexto gráfico
-
+            
+            //g.Clear(SystemColors.Control); //limpa a tela
             figuras.IniciarPercursoSequencial();
             while (figuras.podePercorrer())
             {
@@ -57,6 +59,9 @@ namespace Grafico
                 figuraAtual.Desenhar(figuraAtual.Cor, g);
             }
         }
+        
+        //deve redesenhar as figuras quando um novo arquivo for aberto e quando maximiza, minimiza a janela!
+        
 
         private void btnAbrir_Click(object sender, EventArgs e)
         {
@@ -127,20 +132,33 @@ namespace Grafico
 
         private void pbAreaDesenho_MouseClick(object sender, MouseEventArgs e)
         {
-            
-                figuras.IniciarPercursoSequencial();
-                while (!figuras.ChegouNoFim())
+            //criar forma de iniciar o percurso de traz para frente!!
+                figuras.IniciarPercursoSequencialTP();          //percorre de traz pra frente
+                while (figuras.podePercorrerTP())  
                 {
-
-                    if (figuras.Atual.Info.PertenceFigura(e.X, e.Y))
-                    {
-                        Selecionadas.InserirAposFim(figuras.Atual);
-                        stMensagem.Items[1].Text = "Figura selecionada";                        
-                    }
-
-                    figuras.Avancar();
-
+                     if (figuras.Atual.Info.PertenceFigura(e.X, e.Y)) //ve se o ponto selecionado na tela pertence a alguma figura que
+                     {                                                //esta na lista ligada de figuras
+                         Selecionadas.InserirAposFim(figuras.Atual);  // adiciona a figura que pertence ao ponto em uma nova lista
+                         stMensagem.Items[1].Text = "Figura selecionada";    //sempre selecionara a ultima figura desenhada, ou seja, a do ultimo plano caso 
+                                                                             //seja clicado em mais de uma figura
+                         if(!Selecionadas.EstaVazia)
+                         {
+                             Selecionadas.IniciarPercursoSequencial();
+                             while(Selecionadas.podePercorrer())
+                             {
+                                 if(figuras.Atual.Info.PertenceFigura(e.X, e.Y)){     //se o clicou mais uma vez em cima da mesma figura
+                                  if(Selecionadas.Atual.Info == figuras.Atual.Info)
+                                     Selecionadas.Remover(Seleciondas.Atual.Info);     //figura deixa de ser selecionada                             
+                             }
+                         }
+                     }
+                     else    // caso clique em um ponto onde não tem figuras, a lista de figuras selecionadas é limpada;
+                     {
+                         Selecionadas.LimparLista();
+                         stMensagem.Items[1].Text = "";
+                     }
                 }
+                
             
 
             if (esperaPonto)
@@ -238,7 +256,40 @@ namespace Grafico
         {
 
         }
-
+        
+        //precisa ser criado!
+        private bool limparAreaDesenho()
+        {
+            return false;
+        }
+        
+        //metodo que remove da lista figuras os que estão na lista de selecionados
+        public void RemoverSelecionados()
+        {
+            Selecionados.IniciarPercursoSequencial();
+            while(Selecionados.podePercorrer())
+            {
+                if(Selecionados.Atual = figuras.Atual)
+                {
+                    figuras.Remover(figuras.Atual);
+                }
+            }
+            Selecionados.limparLista();
+        }
+        
+        public void TrocarCor()
+        {
+            Selecionados.IniciarPercursoSequencial();
+            while(Selecionados.podePercorrer())
+            {
+                if(Selecionados.Atual = figuras.Atual)
+                {
+                    figuras.Atual.Info.Cor = novaCor;   //novaCor será a cor selecionada no botão de selecao de cores!
+                }
+            }
+            Selecionados.limparLista();
+        }
+        
         
 
 
