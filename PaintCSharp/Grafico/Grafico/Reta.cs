@@ -27,23 +27,34 @@ namespace Grafico
                             pontoFinal.X, pontoFinal.Y);
         }
 
-        public int CompareTo(Reta other)
+       public override bool PertenceFigura(int x, int y)
         {
-            //precisa implementar
-            return 0;
+            int a = (base.Y - pontoFinal.Y) / (base.X - pontoFinal.X);
+            int b = base.X - a * base.Y;
+            if ((a * x + b - y < 3) && (a * x + b - y > -3))
+            {
+                return true;
+            }
+            return false;
         }
         
-        public override String ToString()
-        {
-            return transformaString("l", 5) +
-                  transformaString(base.X, 5) +
-                  transformaString(base.Y, 5) +
-                  transformaString(pontoFinal.X, 5) +
-                  transformaString(pontoFinal.Y, 5) +
-                    transformaString(Cor.R, 5) +
-                    transformaString(Cor.G, 5) +
-                    transformaString(Cor.B, 5);
-        }
+        //public int CompareTo(Reta other)
+        //{
+        //    //precisa implementar
+        //    return 0;
+        //}
+        
+        //public override String ToString()
+        //{
+        //    return transformaString("l", 5) +
+        //          transformaString(base.X, 5) +
+        //          transformaString(base.Y, 5) +
+        //          transformaString(pontoFinal.X, 5) +
+        //          transformaString(pontoFinal.Y, 5) +
+        //            transformaString(Cor.R, 5) +
+        //            transformaString(Cor.G, 5) +
+        //            transformaString(Cor.B, 5);
+        //}
 
     }
 }

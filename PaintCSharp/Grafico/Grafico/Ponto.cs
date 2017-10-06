@@ -68,6 +68,16 @@ namespace Grafico
             return cadeia.Substring(0, quantasPosicoes); // corta, se necessário, para
                                                          // tamanho máximo 
         }
+
+        public virtual bool PertenceFigura(int x, int y)
+        {
+            if (x == X && y == Y)
+                return true;
+            return false;
+        }
+        
+
+        
         public override String ToString()
         {
             return transformaString("p", 5) +

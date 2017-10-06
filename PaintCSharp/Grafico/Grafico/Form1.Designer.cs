@@ -119,6 +119,7 @@
             this.btnCirculo.Name = "btnCirculo";
             this.btnCirculo.Size = new System.Drawing.Size(23, 22);
             this.btnCirculo.Text = "Circulo";
+            this.btnCirculo.Click += new System.EventHandler(this.btnCirculo_Click);
             // 
             // btnElipse
             // 
@@ -128,6 +129,7 @@
             this.btnElipse.Name = "btnElipse";
             this.btnElipse.Size = new System.Drawing.Size(23, 22);
             this.btnElipse.Text = "Elipse";
+            this.btnElipse.Click += new System.EventHandler(this.btnElipse_Click);
             // 
             // btnRetangulo
             // 
@@ -211,7 +213,9 @@
             this.pbAreaDesenho.Size = new System.Drawing.Size(570, 361);
             this.pbAreaDesenho.TabIndex = 2;
             this.pbAreaDesenho.TabStop = false;
+            this.pbAreaDesenho.Click += new System.EventHandler(this.pbAreaDesenho_Click);
             this.pbAreaDesenho.Paint += new System.Windows.Forms.PaintEventHandler(this.pbAreaDesenho_Paint);
+            this.pbAreaDesenho.DoubleClick += new System.EventHandler(this.pbAreaDesenho_DoubleClick);
             this.pbAreaDesenho.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseClick);
             this.pbAreaDesenho.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbAreaDesenho_MouseMove);
             // 

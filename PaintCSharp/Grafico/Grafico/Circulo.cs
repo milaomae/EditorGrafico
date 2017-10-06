@@ -37,21 +37,30 @@ namespace Grafico
 
         }
 
-        public int CompareTo()
+        public override bool PertenceFigura(int x, int y)
         {
-            //precisa implementar
-            return 0;
+            if (Math.Sqrt((Math.Pow(base.X - x, 2) + Math.Pow(base.Y - y, 2))) <= raio)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public override String ToString()
-        {
-            return transformaString("c", 5) +
-                  transformaString(base.X, 5) +
-                  transformaString(base.Y, 5) +
-                  transformaString(raio, 5) +
-                    transformaString(Cor.R, 5) +
-                    transformaString(Cor.G, 5) +
-                    transformaString(Cor.B, 5);
-        }
+        //public int CompareTo()
+        //{
+        //    //precisa implementar
+        //    return 0;
+        //}
+
+        //public override String ToString()
+        //{
+        //    return transformaString("c", 5) +
+        //          transformaString(base.X, 5) +
+        //          transformaString(base.Y, 5) +
+        //          transformaString(raio, 5) +
+        //            transformaString(Cor.R, 5) +
+        //            transformaString(Cor.G, 5) +
+        //            transformaString(Cor.B, 5);
+        //}
     }
 }
