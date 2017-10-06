@@ -26,8 +26,9 @@ namespace Grafico
         private ListaSimples<Ponto> Selecionadas = new ListaSimples<Ponto>();
         private static Ponto p1 = new Ponto(0, 0, Color.Black);
 
+
         Color corAtual = Color.Black;
-	
+
         private void limparEsperas()
         {
             esperaPonto = false;
@@ -47,10 +48,10 @@ namespace Grafico
 
         private void pbAreaDesenho_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics; // acessa contexto gráfico
+            Graphics g = e.Graphics;    // acessa contexto gráfico
 
             figuras.IniciarPercursoSequencial();
-            while (!figuras.ChegouNoFim())
+            while (figuras.podePercorrer())
             {
                 Ponto figuraAtual = figuras.Atual.Info;
                 figuraAtual.Desenhar(figuraAtual.Cor, g);
@@ -59,7 +60,6 @@ namespace Grafico
 
         private void btnAbrir_Click(object sender, EventArgs e)
         {
-            //Está dando erro!!!
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
                 try
                 {
@@ -91,7 +91,7 @@ namespace Grafico
                                 int xFinal = Convert.ToInt32(linha.Substring(30, 5).Trim());
                                 int yFinal = Convert.ToInt32(linha.Substring(35, 5).Trim());
                                 figuras.InserirAposFim(new NoLista<Ponto>(
-                                        new Reta(xBase, yBase, xFinal, yFinal, cor), null));
+                                               new Reta(xBase, yBase, xFinal, yFinal, cor), null));
                                 break;
                             case 'c': // figura é um círculo
                                 int raio = Convert.ToInt32(linha.Substring(30, 5).Trim());
@@ -129,49 +129,49 @@ namespace Grafico
         {
             if (esperaPonto)
             {
-                limparEsperas();                
+                limparEsperas();
                 Ponto novoPonto = new Ponto(e.X, e.Y, corAtual);
                 figuras.InserirAposFim(new NoLista<Ponto>(novoPonto, null));
-                novoPonto.Desenhar(novoPonto.Cor, pbAreaDesenho.CreateGraphics());                
+                novoPonto.Desenhar(novoPonto.Cor, pbAreaDesenho.CreateGraphics());
                 stMensagem.Items[1].Text = "clique no local do ponto desejado:";
             }
             else
                 if (esperaInicioReta)
-                 {
-                     limparEsperas();
-                     p1.Cor = corAtual;
-                     p1.X = e.X;
-                     p1.Y = e.Y;
-                     esperaFimReta = true;
-                     stMensagem.Items[1].Text = "clique o ponto final da reta";
+            {
+                limparEsperas();
+                p1.Cor = corAtual;
+                p1.X = e.X;
+                p1.Y = e.Y;
+                esperaFimReta = true;
+                stMensagem.Items[1].Text = "clique o ponto final da reta";
             }
             else
                   if (esperaFimReta)
-                  {
-                     esperaFimReta = false;
-                     Reta novaLinha = new Reta(p1.X, p1.Y, e.X, e.Y, corAtual);
-                     figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
-                     novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
-                    stMensagem.Items[1].Text = "Clique no local do ponto inicial da reta:";
-                    }
+            {
+                esperaFimReta = false;
+                Reta novaLinha = new Reta(p1.X, p1.Y, e.X, e.Y, corAtual);
+                figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
+                novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
+                stMensagem.Items[1].Text = "Clique no local do ponto inicial da reta:";
+            }
             else
                   if (esperaInicioCirculo)
-                  {
-                      limparEsperas();
-                      esperaFimCirculo = true;
-                      p1.X = e.X;
-                      p1.Y = e.Y;
-                      stMensagem.Items[1].Text = "clique o ponto da extremidade do circulo";
-                  }
+            {
+                limparEsperas();
+                esperaFimCirculo = true;
+                p1.X = e.X;
+                p1.Y = e.Y;
+                stMensagem.Items[1].Text = "clique o ponto da extremidade do circulo";
+            }
             else
                   if (esperaFimCirculo)
-                  {
-                      esperaFimCirculo = false;
-                      Circulo novaLinha = new Circulo(p1.X, p1.Y, (int)Math.Sqrt(Math.Pow(p1.X - e.X, 2) + Math.Pow(p1.Y - e.Y, 2)), corAtual);
-                      figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
-                      novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
-                      stMensagem.Items[1].Text = "Clique no local do ponto central do círculo:";
-                     }
+            {
+                esperaFimCirculo = false;
+                Circulo novaLinha = new Circulo(p1.X, p1.Y, (int)Math.Sqrt(Math.Pow(p1.X - e.X, 2) + Math.Pow(p1.Y - e.Y, 2)), corAtual);
+                figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
+                novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
+                stMensagem.Items[1].Text = "Clique no local do ponto central do círculo:";
+            }
             else
                   if (esperaInicioElipse)
             {
@@ -190,7 +190,7 @@ namespace Grafico
                 novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
                 stMensagem.Items[1].Text = "Clique no local do ponto central da Elipse:";
             }
-            
+
 
 
 
@@ -240,10 +240,8 @@ namespace Grafico
 
             }
         }
+
     }
-
-    
-
 }
 
 

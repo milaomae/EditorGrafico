@@ -11,12 +11,14 @@ namespace Grafico
     {
         NoLista<Dado> primeiro, ultimo, atual, anterior;
         int quantosNos;
+        bool primeiroAcessoDoPercurso;
 
         public ListaSimples()
         {
             primeiro = null;
             ultimo = null;
             quantosNos = 0;
+            primeiroAcessoDoPercurso = false;
         }
 
         public int QuantosNos
@@ -35,6 +37,7 @@ namespace Grafico
 
         public void IniciarPercursoSequencial()
         {
+            primeiroAcessoDoPercurso = true; 
             anterior = null;
             atual = primeiro;
         }
@@ -43,6 +46,19 @@ namespace Grafico
         {
             return atual == null;
         }
+
+        public bool podePercorrer()
+    {
+      if (!primeiroAcessoDoPercurso)
+      {
+        anterior = atual;
+        atual = atual.Prox;
+      }
+      else
+        primeiroAcessoDoPercurso = false;
+
+      return atual != null;
+    }
 
         public Dado InfoAtual()
         {

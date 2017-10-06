@@ -19,14 +19,22 @@ namespace Grafico
         {
             pontoFinal = new Ponto(x2, y2, novaCor);
         }
+        
+        internal Ponto PontoFinal
+        {
+            get {return pontoFinal; }
+            
+            set { pontoFinal = value; }
+        }
 
+        
         public override void Desenhar(Color corDesenho, Graphics g)
         {
             Pen pen = new Pen(corDesenho);
             g.DrawLine(pen, base.X, base.Y,         // ponto inicial
                             pontoFinal.X, pontoFinal.Y);
         }
-
+        
        public override bool PertenceFigura(int x, int y)
         {
             int a = (base.Y - pontoFinal.Y) / (base.X - pontoFinal.X);
@@ -55,6 +63,25 @@ namespace Grafico
         //            transformaString(Cor.G, 5) +
         //            transformaString(Cor.B, 5);
         //}
+
+      //  public int CompareTo(Reta other)
+      //  {
+       //     //precisa implementar
+       //     return 0;
+      //  }
+        
+     //   public override String ToString()
+     //   {
+     //       return transformaString("l", 5) +
+    //              transformaString(base.X, 5) +
+     //             transformaString(base.Y, 5) +
+     //             transformaString(pontoFinal.X, 5) +
+     //             transformaString(pontoFinal.Y, 5) +
+     //               transformaString(Cor.R, 5) +
+     //               transformaString(Cor.G, 5) +
+    //                transformaString(Cor.B, 5);
+     //   }
+
 
     }
 }
