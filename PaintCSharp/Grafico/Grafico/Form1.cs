@@ -19,6 +19,7 @@ namespace Grafico
         private ListaSimples<Ponto> figuras = new ListaSimples<Ponto>();
         private static Ponto p1 = new Ponto(0, 0, Color.Black);
 
+
         Color corAtual = Color.Black;
 	
         private void limparEsperas()
@@ -35,10 +36,10 @@ namespace Grafico
 
         private void pbAreaDesenho_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics; // acessa contexto gráfico
+            Graphics g = e.Graphics;    // acessa contexto gráfico
 
             figuras.IniciarPercursoSequencial();
-            while (!figuras.ChegouNoFim())
+            while (figuras.podePercorrer())
             {
                 Ponto figuraAtual = figuras.Atual.Info;
                 figuraAtual.Desenhar(figuraAtual.Cor, g);
@@ -47,8 +48,6 @@ namespace Grafico
 
         private void btnAbrir_Click(object sender, EventArgs e)
         {
-            //Está dando erro!!!
-	    //Mudado, testar depois!!
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
                 try
                 {
@@ -59,7 +58,7 @@ namespace Grafico
                     Double xSupDir = Convert.ToDouble(linha.Substring(10, 5).Trim());
                     Double ySupDir = Convert.ToDouble(linha.Substring(15, 5).Trim());
 
-                    while (!arqFiguras.EndOfStream)
+                    while ((linha = arqFiguras.ReadLine()) != null)
                     {
                         String tipo = linha.Substring(0, 5).Trim();
                         int xBase = Convert.ToInt32(linha.Substring(5, 5).Trim());
@@ -80,7 +79,7 @@ namespace Grafico
                                 int xFinal = Convert.ToInt32(linha.Substring(30, 5).Trim());
                                 int yFinal = Convert.ToInt32(linha.Substring(35, 5).Trim());
                                 figuras.InserirAposFim(new NoLista<Ponto>(
-                                        new Reta(xBase, yBase, xFinal, yFinal, cor), null));
+                                               new Reta(xBase, yBase, xFinal, yFinal, cor), null));
                                 break;
                             case 'c': // figura é um círculo
                                 int raio = Convert.ToInt32(linha.Substring(30, 5).Trim());
@@ -152,6 +151,11 @@ namespace Grafico
             stMensagem.Items[1].Text = "Clique no local do ponto inicial da reta:";
             limparEsperas();
             esperaInicioReta = true;
+
+        }
+
+        private void frmGrafico_Load(object sender, EventArgs e)
+        {
 
         }
     }
