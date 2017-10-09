@@ -79,11 +79,20 @@ namespace Grafico
     
     public bool podePercorrerTP()
     {
+      if (anterior == null)
+          return false;
       if (!primeiroAcessoDoPercursoTP)
       {
         atual = anterior;
         anterior = primeiro;
-        while (anterior.Prox != atual && anterior.Prox != null) { anterior = anterior.Prox; };        
+        if (atual != anterior) {
+            while (anterior.Prox != atual && anterior.Prox != null) { anterior = anterior.Prox; };
+        }
+        else
+        {
+            anterior = null;
+        }
+
       }
       else
       {
@@ -92,7 +101,7 @@ namespace Grafico
               return true;
       }
 
-      return atual != anterior;      
+      return true;
     }
 
         public Dado InfoAtual()

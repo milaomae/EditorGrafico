@@ -168,6 +168,7 @@ namespace Grafico
                                     Selecionadas.InserirAposFim(figuras.Atual);          // adiciona a figura que pertence ao ponto em uma nova lista
                                     stMensagem.Items[1].Text = "Figura selecionada";    //sempre selecionara a ultima figura desenhada, ou seja, a do ultimo plano caso 
                                                                                          //seja clicado em mais de uma figura
+                                    break;
                                  }
                              else    // caso clique em um ponto onde não tem figuras, a lista de figuras selecionadas é limpada;
                                  {
