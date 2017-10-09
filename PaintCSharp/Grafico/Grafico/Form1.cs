@@ -115,6 +115,25 @@ namespace Grafico
                                 figuras.InserirAposFim(new NoLista<Ponto>(
                                            new Circulo(xBase, yBase, raio, cor), null));
                                 break;
+                            case 'e': // figura é uma elipse
+                                int raioUm = Convert.ToInt32(linha.Substring(30, 5).Trim());
+                                int raioDois = Convert.ToInt32(linha.Substring(35, 5).Trim());
+                                figuras.InserirAposFim(new NoLista<Ponto>(
+                                           new Elipse(xBase, yBase, raioUm, raioDois, cor), null));
+                                break;
+                            case 'r': // figura é um retângulo
+                                int xFinal = Convert.ToInt32(linha.Substring(30, 5).Trim());
+                                int yFinal = Convert.ToInt32(linha.Substring(35, 5).Trim());
+                                int largura = Convert.ToInt32(linha.Substring(40, 5).Trim());
+                                int altura = Convert.ToInt32(linha.Substring(45, 5).Trim());
+                                figuras.InserirAposFim(new NoLista<Ponto>(
+                                           new Retangulo(xBase, yBase, xFinal, yFinal, largura, altura, cor), null));
+                                break;
+                            case 'pol': // figura é uma polilinha                               
+                                figuras.InserirAposFim(new NoLista<Ponto>(
+                                           new Polilinha(xBase, yBase, new ListaSimples<Ponto>(), cor), null));
+                                break;
+                                
                         }
                     }
                     arqFiguras.Close();
@@ -380,12 +399,8 @@ namespace Grafico
             while(Selecionadas.podePercorrer())
             {
                 if(Selecionadas.Atual == figuras.Atual)
-                {
-                    if (cdPaleta.ShowDialog() == DialogResult.OK)
-                    {
-                        this.corAtual = cdPaleta.Color;
-                        figuras.Atual.Info.Cor = corAtual; //novaCor será a cor selecionada no botão de selecao de cores!
-                    }
+                {                   
+                        figuras.Atual.Info.Cor = corAtual; //novaCor será a cor selecionada no botão de selecao de cores!                   
                        
                 }
             }
@@ -426,11 +441,14 @@ namespace Grafico
             if (cdPaleta.ShowDialog() == DialogResult.OK)
             {
                 this.corAtual = cdPaleta.Color;
+                TrocarCor();
             }
         }
         
+        //criar evento do botao deletar e chamar RemoverSelecionados();
         
-
+        
+        //fazer o botao de salvar arq
 
     }
 }
