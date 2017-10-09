@@ -11,7 +11,7 @@ namespace Grafico
     {
         NoLista<Dado> primeiro, ultimo, atual, anterior;
         int quantosNos;
-        bool primeiroAcessoDoPercurso;
+        bool primeiroAcessoDoPercurso, primeiroAcessoDoPercursoTP;
 
         public ListaSimples()
         {
@@ -44,10 +44,10 @@ namespace Grafico
         
         public void IniciarPercursoSequencialTP()
         {
-            primeiroAcessoDoPercurso = true; 
+            primeiroAcessoDoPercursoTP = true; 
             atual = ultimo;
             anterior = primeiro; 
-            while(anterior != atual) {anterior = anterior.Prox;};
+            while(anterior.Prox != atual && anterior.Prox != null) {anterior = anterior.Prox;};
             
         }
 
@@ -58,7 +58,10 @@ namespace Grafico
         
         public bool ChegouNoFimTP()
         {
-            return atual == anterior;
+            if (!EstaVazia)
+                return atual == anterior;
+            else
+                return false;
         }
 
         public bool podePercorrer()
@@ -79,12 +82,17 @@ namespace Grafico
       if (!primeiroAcessoDoPercursoTP)
       {
         atual = anterior;
-        while(anterior != atual) {anterior = anterior.Prox;};        
+        anterior = primeiro;
+        while (anterior.Prox != atual && anterior.Prox != null) { anterior = anterior.Prox; };        
       }
       else
-        primeiroAcessoDoPercurso = false;
+      {
+          primeiroAcessoDoPercursoTP = false;
+          if ((!EstaVazia) && (anterior == atual))
+              return true;
+      }
 
-      return atual != anterior;
+      return atual != anterior;      
     }
 
         public Dado InfoAtual()
@@ -102,7 +110,7 @@ namespace Grafico
         }
         
         public void AvancarTP()
-        {
+        {           
             if (atual != anterior){
                 atual = anterior;
                 while(anterior != atual) {anterior = anterior.Prox;}; 
@@ -115,7 +123,7 @@ namespace Grafico
             anterior = primeiro;
                 while (atual != null)
                 {                     
-                    while(anterior != atual)
+                    while(anterior.Prox != atual)
                     {
                         anterior = anterior.Prox;
                     }                    
@@ -285,6 +293,14 @@ namespace Grafico
             get
             {
                 return atual;
+            }
+        }
+
+        public NoLista<Dado> Primeiro
+        {
+            get
+            {
+                return primeiro;
             }
         }
 

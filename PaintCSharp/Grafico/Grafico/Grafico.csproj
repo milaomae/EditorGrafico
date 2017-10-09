@@ -53,10 +53,12 @@
     </Compile>
     <Compile Include="ListaSimples.cs" />
     <Compile Include="NoLista.cs" />
+    <Compile Include="Polilinha.cs" />
     <Compile Include="Ponto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reta.cs" />
+    <Compile Include="Retangulo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -68,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +81,42 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\sair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\deletar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\selecionar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\paleta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\polilinha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\elipse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\retangulo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\circulo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\reta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\ponto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\salvar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icones\abrir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

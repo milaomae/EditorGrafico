@@ -35,15 +35,17 @@ namespace Grafico
             Pen pen = new Pen(corDesenho);
             g.DrawEllipse(pen, base.X - raioUm, base.Y - raioDois,    
                                     2 * raioUm, 2 * raioDois);
+            
         }
 
         public override bool PertenceFigura(int x, int y)
         {
-            if ((Math.Pow((base.X - x) / raioUm, 2) + Math.Pow((base.Y - y) / raioDois, 2)) <= 1)
-            {
+            int raioAux;
+            raioAux = Convert.ToInt32(Math.Pow(Math.Abs(x - base.X)/this.raioUm, 2) + Math.Pow(Math.Abs(y - base.Y)/this.raioDois, 2));
+            if (raioAux <= 1)
                 return true;
-            }
-            return false;
+            else
+                return false;
         }
     }
 }

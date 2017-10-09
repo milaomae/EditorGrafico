@@ -39,11 +39,17 @@ namespace Grafico
 
         public override bool PertenceFigura(int x, int y)
         {
-            if (Math.Sqrt((Math.Pow(base.X - x, 2) + Math.Pow(base.Y - y, 2))) <= raio)
-            {
+            int raioAux;
+            raioAux = Convert.ToInt32(Math.Sqrt(Math.Pow(Math.Abs(x-base.X),2) + Math.Pow(Math.Abs(y-base.Y),2)));
+            //if (Math.Abs(x - base.X) > Math.Abs(y - base.Y))
+            //    raioAux = (int)Math.Abs(x - base.X);
+            //else
+            //    raioAux = (int)Math.Abs(y - base.Y);
+
+            if (raioAux <= raio)
                 return true;
-            }
-            return false;
+            else
+                return false;
         }
 
         //public int CompareTo()

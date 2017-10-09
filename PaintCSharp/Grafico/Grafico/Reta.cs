@@ -18,15 +18,8 @@ namespace Grafico
         public Reta(int x1, int y1, int x2, int y2, Color novaCor) : base(x1, y1, novaCor)
         {
             pontoFinal = new Ponto(x2, y2, novaCor);
-        }
-        
-        internal Ponto PontoFinal
-        {
-            get {return pontoFinal; }
-            
-            set { pontoFinal = value; }
-        }
-
+        }        
+      
         
         public override void Desenhar(Color corDesenho, Graphics g)
         {
@@ -37,13 +30,49 @@ namespace Grafico
         
        public override bool PertenceFigura(int x, int y)
         {
-            int a = (base.Y - pontoFinal.Y) / (base.X - pontoFinal.X);
-            int b = base.X - a * base.Y;
-            if ((a * x + b - y < 3) && (a * x + b - y > -3))
-            {
-                return true;
-            }
-            return false;
+           int clickbox = 10;
+           int boxX = x - clickbox / 2;
+           int boxY = y - clickbox / 2;
+           int largura = clickbox;
+           int altura = clickbox;
+
+           if (pontoFinal.X >= base.X)
+           {
+               if (pontoFinal.Y >= base.Y)
+               {
+                   if((base.X > x && x < pontoFinal.X)||
+                       (base.Y > y && y < pontoFinal.Y))
+                       return false;
+               }
+               else
+               {
+                   if((base.X > x && x < pontoFinal.X)||
+                       (base.Y < y && y > pontoFinal.Y))
+                       return false;
+               }
+           }
+           else
+           {
+               if (pontoFinal.Y >= base.Y)
+               {
+                   if((base.X < x && x > pontoFinal.X)||
+                       (base.Y > y && y < pontoFinal.Y))
+                       return false;
+               }
+               else
+               {
+                   if((base.X < x && x > pontoFinal.X)||
+                       (base.Y < y && y > pontoFinal.Y))
+                       return false;
+               }
+           }
+           int testY = ((base.Y - pontoFinal.Y)*x + (base.X*pontoFinal.Y - base.Y*pontoFinal.X))/(base.X - pontoFinal.X);
+           int testX = ((pontoFinal.X - base.X)*y + (base.X*pontoFinal.Y - base.Y*pontoFinal.X))/(pontoFinal.Y - base.Y);
+           if ((boxX <= testX && testX <= boxX + largura) &&
+               (boxY <= testY && testY <= boxY + altura))
+               return true;
+           else
+               return false;
         }
         
         //public int CompareTo(Reta other)

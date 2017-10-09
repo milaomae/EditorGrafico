@@ -21,11 +21,18 @@ namespace Grafico
         bool esperaInicioElipse = false;
         bool esperaFimElipse = false;
         bool esperaSeleciona = false;
+        bool esperaInicioRetangulo = false;
+        bool esperaFimRetangulo = false;
+        bool esperaInicioPolilinha = false;
+        bool esperaFimPolilinha = false;
+        bool desenhandoPolilinha = false;
+        bool outroBotaoClicado = false;
 
         private ListaSimples<Ponto> figuras = new ListaSimples<Ponto>();
         private ListaSimples<Ponto> Selecionadas = new ListaSimples<Ponto>();
         private static Ponto p1 = new Ponto(0, 0, Color.Black);
 
+        private ListaSimples<Ponto> pontos = new ListaSimples<Ponto>();
 
         Color corAtual = Color.Black;
         Color novaCor;
@@ -40,6 +47,11 @@ namespace Grafico
             esperaInicioElipse = false;
             esperaFimElipse = false;
             esperaSeleciona = false;
+            esperaInicioPolilinha = false;
+            esperaFimPolilinha = false;
+            desenhandoPolilinha = false;
+            outroBotaoClicado = false;
+
         }
 
         public frmGrafico()
@@ -132,36 +144,46 @@ namespace Grafico
 
         private void pbAreaDesenho_MouseClick(object sender, MouseEventArgs e)
         {
-            //criar forma de iniciar o percurso de traz para frente!!
-                figuras.IniciarPercursoSequencialTP();          //percorre de traz pra frente
+            if (esperaSeleciona) // !esperaPonto && !esperaInicioReta && !esperaFimReta && !esperaInicioCirculo && !esperaFimCirculo !&& !esperaInicioElipse && !esperaFimElipse
+            {    
+               figuras.IniciarPercursoSequencialTP();          //percorre de traz pra frente
                 while (figuras.podePercorrerTP())  
                 {
-                     if (figuras.Atual.Info.PertenceFigura(e.X, e.Y)) //ve se o ponto selecionado na tela pertence a alguma figura que
-                     {                                                //esta na lista ligada de figuras
-                         Selecionadas.InserirAposFim(figuras.Atual);  // adiciona a figura que pertence ao ponto em uma nova lista
-                         stMensagem.Items[1].Text = "Figura selecionada";    //sempre selecionara a ultima figura desenhada, ou seja, a do ultimo plano caso 
-                                                                             //seja clicado em mais de uma figura
-                         if(!Selecionadas.EstaVazia)
-                         {
-                             Selecionadas.IniciarPercursoSequencial();
-                             while(Selecionadas.podePercorrer())
-                             {
-                                 if(figuras.Atual.Info.PertenceFigura(e.X, e.Y)){     //se o clicou mais uma vez em cima da mesma figura
-                                  if(Selecionadas.Atual.Info == figuras.Atual.Info)
-                                     Selecionadas.Remover(Seleciondas.Atual.Info);     //figura deixa de ser selecionada                             
-                             }
-                         }
+                     
+                         //if (!Selecionadas.EstaVazia)
+                         //{
+                         //    Selecionadas.IniciarPercursoSequencial();
+                         //    while (Selecionadas.podePercorrer())
+                         //    {
+                         //        if (figuras.Atual.Info.PertenceFigura(e.X, e.Y))
+                         //        {     //se o clicou mais uma vez em cima da mesma figura
+                         //            if (Selecionadas.Atual.Info == figuras.Atual.Info)
+                         //                Selecionadas.Remover(Selecionadas.Atual.Info);     //figura deixa de ser selecionada                             
+                         //        }
+                         //    }
+                         //}
+                                                  
+                             if (figuras.Atual.Info.PertenceFigura(e.X, e.Y))           //ve se o ponto selecionado na tela pertence a alguma figura que
+                                 {                                                      //esta na lista ligada de figuras
+                                    Selecionadas.InserirAposFim(figuras.Atual);          // adiciona a figura que pertence ao ponto em uma nova lista
+                                    stMensagem.Items[1].Text = "Figura selecionada";    //sempre selecionara a ultima figura desenhada, ou seja, a do ultimo plano caso 
+                                                                                         //seja clicado em mais de uma figura
+                                 }
+                             else    // caso clique em um ponto onde não tem figuras, a lista de figuras selecionadas é limpada;
+                                 {
+                                     Selecionadas.LimparLista();
+                                     stMensagem.Items[1].Text = "";
+                                 }
+                         
                      }
-                     else    // caso clique em um ponto onde não tem figuras, a lista de figuras selecionadas é limpada;
-                     {
-                         Selecionadas.LimparLista();
-                         stMensagem.Items[1].Text = "";
-                     }
-                }
+                     
+                
+                esperaSeleciona = false;
+              }
                 
             
-
-            if (esperaPonto)
+            else
+                if (esperaPonto)
             {
                 esperaPonto = false;
                 Ponto novoPonto = new Ponto(e.X, e.Y, corAtual);
@@ -186,7 +208,7 @@ namespace Grafico
                 Reta novaLinha = new Reta(p1.X, p1.Y, e.X, e.Y, corAtual);
                 figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
                 novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
-                stMensagem.Items[1].Text = "Clique no local do ponto inicial da reta:";
+                stMensagem.Items[1].Text = "";
             }
             else
                   if (esperaInicioCirculo)
@@ -204,7 +226,7 @@ namespace Grafico
                 Circulo novaLinha = new Circulo(p1.X, p1.Y, (int)Math.Sqrt(Math.Pow(p1.X - e.X, 2) + Math.Pow(p1.Y - e.Y, 2)), corAtual);
                 figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
                 novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
-                stMensagem.Items[1].Text = "Clique no local do ponto central do círculo:";
+                stMensagem.Items[1].Text = "";
             }
             else
                   if (esperaInicioElipse)
@@ -222,8 +244,76 @@ namespace Grafico
                 Elipse novaLinha = new Elipse(p1.X, p1.Y, Math.Abs(p1.X - e.X), Math.Abs(p1.Y - e.Y), corAtual);
                 figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
                 novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
-                stMensagem.Items[1].Text = "Clique no local do ponto central da Elipse:";
+                stMensagem.Items[1].Text = "";
             }
+                  else
+                      if (esperaInicioRetangulo)
+                      {
+                          esperaInicioRetangulo = false;
+                          esperaFimRetangulo = true;
+                          p1.X = e.X;
+                          p1.Y = e.Y;
+                          stMensagem.Items[1].Text = "clique o ponto da extremidade do retângulo";
+                      }
+                      else
+                          if (esperaFimRetangulo)
+                          {
+                              esperaFimRetangulo = false;
+                              
+                              Retangulo novaLinha = new Retangulo(Math.Min(p1.X, e.X), 
+                                                                  Math.Min(p1.Y, e.Y),
+                                                                  Math.Max(p1.X, e.X),
+                                                                  Math.Max(p1.Y, e.Y),
+                                                                  Math.Abs(e.X - p1.X),
+                                                                  Math.Abs(e.Y - p1.Y), corAtual);
+                              figuras.InserirAposFim(new NoLista<Ponto>(novaLinha, null));
+                              novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
+                              stMensagem.Items[1].Text = "";
+                          }
+                          else
+                              if (esperaInicioPolilinha)
+                              {
+                                  if (!outroBotaoClicado)
+                                  {
+                                      esperaInicioPolilinha = false;
+                                      desenhandoPolilinha = true;
+                                      p1.X = e.X;
+                                      p1.Y = e.Y;
+                                      stMensagem.Items[1].Text = "clique no final da linha e inicio da proxima";
+                                  }
+                                  else
+                                  {
+                                      esperaFimPolilinha = true;
+                                      desenhandoPolilinha = false;
+                                      esperaInicioPolilinha = false;
+                                  }
+                              }
+                              else
+                                  if (desenhandoPolilinha)
+                                  {
+                                      if (!outroBotaoClicado)      
+                                      {               
+                                          Reta novaLinha = new Reta(p1.X, p1.Y, e.X, e.Y, corAtual);
+                                          pontos.InserirAposFim(novaLinha);
+                                          novaLinha.Desenhar(novaLinha.Cor, pbAreaDesenho.CreateGraphics());
+                                          stMensagem.Items[1].Text = "clique no final da linha e inicio da proxima";
+                                          p1.X = e.X;
+                                          p1.Y = e.Y;
+                                      }
+                                      else
+                                      {
+                                          esperaFimPolilinha = true;
+                                          desenhandoPolilinha = false;
+                                          esperaInicioPolilinha = false;
+                                      }
+                                  }
+                              else
+                                  if (esperaFimPolilinha)
+                                  {
+                                      esperaFimPolilinha = false;
+                                      figuras.InserirAposFim(new NoLista<Ponto>(new Polilinha(pontos.Primeiro.Info.X, pontos.Primeiro.Info.Y, pontos, corAtual), null));
+                                      stMensagem.Items[1].Text = "";
+                                  }
 
 
 
@@ -235,6 +325,7 @@ namespace Grafico
             stMensagem.Items[1].Text = "Clique no local do ponto inicial da reta:";
             limparEsperas();
             esperaInicioReta = true;
+            outroBotaoClicado = true;
 
         }
 
@@ -243,6 +334,7 @@ namespace Grafico
             stMensagem.Items[1].Text = "Clique no local do ponto central do círculo:";
             limparEsperas();
             esperaInicioCirculo = true;
+            outroBotaoClicado = true;
         }
 
         private void btnElipse_Click(object sender, EventArgs e)
@@ -250,6 +342,7 @@ namespace Grafico
             stMensagem.Items[1].Text = "Clique no local do ponto central da Elipse:";
             limparEsperas();
             esperaInicioElipse = true;
+            outroBotaoClicado = true;
         }
 
         private void pbAreaDesenho_Click(object sender, EventArgs e)
@@ -264,30 +357,75 @@ namespace Grafico
         }
         
         //metodo que remove da lista figuras os que estão na lista de selecionados
-        public void RemoverSelecionados()
+        public bool RemoverSelecionados()
         {
-            Selecionados.IniciarPercursoSequencial();
-            while(Selecionados.podePercorrer())
+            bool ret = false;
+            Selecionadas.IniciarPercursoSequencial();
+            while(Selecionadas.podePercorrer())
             {
-                if(Selecionados.Atual = figuras.Atual)
+                if(Selecionadas.Atual == figuras.Atual)
                 {
-                    figuras.Remover(figuras.Atual);
+                    ret = figuras.Remover(figuras.Atual.Info);
                 }
             }
-            Selecionados.limparLista();
+            Selecionadas.LimparLista();
+
+            return ret;
         }
         
         public void TrocarCor()
         {
-            Selecionados.IniciarPercursoSequencial();
-            while(Selecionados.podePercorrer())
+            Selecionadas.IniciarPercursoSequencial();
+            while(Selecionadas.podePercorrer())
             {
-                if(Selecionados.Atual = figuras.Atual)
+                if(Selecionadas.Atual == figuras.Atual)
                 {
-                    figuras.Atual.Info.Cor = novaCor;   //novaCor será a cor selecionada no botão de selecao de cores!
+                    if (cdPaleta.ShowDialog() == DialogResult.OK)
+                    {
+                        this.corAtual = cdPaleta.Color;
+                        figuras.Atual.Info.Cor = corAtual; //novaCor será a cor selecionada no botão de selecao de cores!
+                    }
+                       
                 }
             }
-            Selecionados.limparLista();
+            Selecionadas.LimparLista();
+        }
+
+        private void btnSelecionar_Click(object sender, EventArgs e)
+        {
+            stMensagem.Items[1].Text = "Clique nas figuras a serem selecionadas:";
+            limparEsperas();
+            esperaSeleciona = true;
+            outroBotaoClicado = true;
+
+        }        
+
+        private void frmGrafico_AutoSizeChanged(object sender, EventArgs e)
+        {
+            pbAreaDesenho.Invalidate();
+        }
+
+        private void btnRetangulo_Click(object sender, EventArgs e)
+        {
+            stMensagem.Items[1].Text = "Clique no início do retângulo";
+            limparEsperas();
+            esperaInicioRetangulo = true;
+            outroBotaoClicado = true;
+        }
+
+        private void btnPolilinha_Click(object sender, EventArgs e)
+        {
+            stMensagem.Items[1].Text = "Clique no início da polilinha";
+            limparEsperas();
+            esperaInicioPolilinha = true;
+        }
+
+        private void btnCor_Click(object sender, EventArgs e)
+        {
+            if (cdPaleta.ShowDialog() == DialogResult.OK)
+            {
+                this.corAtual = cdPaleta.Color;
+            }
         }
         
         
