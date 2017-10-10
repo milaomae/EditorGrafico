@@ -82,6 +82,27 @@ namespace Grafico
                 }
             }
                 
-        }
+        }
+        
+        public int CompareTo(Retangulo other)
+        {
+           //precisa implementar
+            return 0;
+        }
+        
+        public override String ToString()
+        {
+            return transformaString("r", 5) +
+                   transformaString(base.X, 5) +
+                   transformaString(base.Y, 5) +
+                   transformaString(pontoFinal.X, 5) +
+                   transformaString(pontoFinal.Y, 5) +
+                   transformaString(largura, 5) +
+                   transformaString(altura, 5) +
+                   transformaString(Cor.R, 5) +
+                   transformaString(Cor.G, 5) +
+                   transformaString(Cor.B, 5);
+        }
+
     }
 }
