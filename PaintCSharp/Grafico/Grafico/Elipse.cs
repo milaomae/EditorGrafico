@@ -47,5 +47,23 @@ namespace Grafico
             else
                 return false;
         }
+        
+         public int CompareTo(Elipse other)
+        {
+           //precisa implementar
+            return 0;
+        }
+        
+        public override String ToString()
+        {
+            return transformaString("e", 5) +
+                   transformaString(base.X, 5) +
+                   transformaString(base.Y, 5) +
+                   transformaString(raioUm, 5) +
+                   transformaString(raioDois, 5) +
+                   transformaString(Cor.R, 5) +
+                   transformaString(Cor.G, 5) +
+                   transformaString(Cor.B, 5);
+        }
     }
 }
