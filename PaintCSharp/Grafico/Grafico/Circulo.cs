@@ -52,39 +52,22 @@ namespace Grafico
                 return false;
         }
 
-        //public int CompareTo()
-        //{
-        //    //precisa implementar
-        //    return 0;
-        //}
+        public int CompareTo()
+        {
+            //precisa implementar
+           return 0;
+        }
 
-        //public override String ToString()
-        //{
-        //    return transformaString("c", 5) +
-        //          transformaString(base.X, 5) +
-        //          transformaString(base.Y, 5) +
-        //          transformaString(raio, 5) +
-        //            transformaString(Cor.R, 5) +
-        //            transformaString(Cor.G, 5) +
-        //            transformaString(Cor.B, 5);
-        //}
-
-      //  public int CompareTo()
-     //   {
-     //       //precisa implementar
-     //       return 0;
-     //   }
-
-     //   public override String ToString()
-     //   {
-     //       return transformaString("c", 5) +
-     //             transformaString(base.X, 5) +
-     //             transformaString(base.Y, 5) +
-     //             transformaString(raio, 5) +
-     //               transformaString(Cor.R, 5) +
-     //               transformaString(Cor.G, 5) +
-     //               transformaString(Cor.B, 5);
-     //   }
+        public override String ToString()
+        {
+            return transformaString("c", 5) +
+                  transformaString(base.X, 5) +
+                  transformaString(base.Y, 5) +
+                  transformaString(raio, 5) +
+                    transformaString(Cor.R, 5) +
+                    transformaString(Cor.G, 5) +
+                    transformaString(Cor.B, 5);
+       }
 
     }
 }
